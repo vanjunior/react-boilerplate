@@ -12,6 +12,9 @@ This boilerplate contains some packages below :
 - Redux Form
 - Lodash
 - Axios
+- Webpack
+- Webpack-dev-server
+
 
 #### Getting Started ###
 
@@ -23,6 +26,7 @@ Clone this repository and  then install the dependencies
     > npm run start
 ```
 
+
 #### Run the Boilerplate ###
 
 After clone and installing the dependencies then you can run the development server by typing:
@@ -30,5 +34,7 @@ After clone and installing the dependencies then you can run the development ser
     > npm run start
 ```
 then you're good to go! just access the boilerplate at localhost:9000/
+
+
 
 ## Happy Coding! ##
