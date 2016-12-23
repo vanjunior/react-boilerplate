@@ -1,0 +1,8 @@
+{
+	"presets": [
+		"react",
+		["latest", {
+			"es2015": true
+		}]
+	]
+}
