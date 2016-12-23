@@ -1,2 +1,2 @@
 # react-boilerplate
-React Boilerplate
+React Boilerplates
