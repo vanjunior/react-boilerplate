@@ -2,6 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 ReactDOM.render(
-	<h1>Hello World, from Ivan Junior!</h1>,
+	<h1>Welcome to the React, Redux & Webpack Boilerplate</h1>,
 	document.querySelector('.root-container')
 );

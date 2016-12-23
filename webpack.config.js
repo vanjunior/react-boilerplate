@@ -1,27 +1,27 @@
-const SOURCE_JS 	= './src/';
-const SOURCE_ASSET 	= './assets/';
-const SOURCE_PUBLIC = './public/';
+var path = require('path');
+
+const DIR_NAME		= __dirname;
+const SOURCE_SRC	= `${DIR_NAME}/src`;
+const SOURCE_ASSET 	= `${DIR_NAME}/assets`;
+const SOURCE_PUBLIC = `${DIR_NAME}/public`;
+
+function pathResolve(p) {
+	return path.resolve(DIR_NAME, p);
+}
 
 module.exports = {
 	entry: [
-		`${SOURCE_JS}/index.js`
+		pathResolve(`${SOURCE_SRC}/index.js`)
 	],
 	output: {
-		path: `${SOURCE_PUBLIC}/js/`,
+		path: pathResolve(`${SOURCE_PUBLIC}/js/`),
+		publicPath: '/js/',
 		filename: 'bundle.js'
 	},
 	module: {
 		loaders: [{
 			exclude: /node_modules/,
-			loader: 'babel-loader',
-			query: {
-				presets: [
-					'react',
-					['latest', {
-						es2015: true
-					}]
-				]
-			}
+			loader: 'babel-loader'
 		}]
 	},
 	resolve: {
@@ -31,7 +31,7 @@ module.exports = {
 		]
 	},
 	devServer: {
-		contentBase: SOURCE_PUBLIC,
+		contentBase: './public/',
 		compress: true,
 		port: 9000,
 		historyApiFallback: true
