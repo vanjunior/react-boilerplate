@@ -15,13 +15,20 @@ This boilerplate contains some packages below :
 
 #### Getting Started ###
 
-1. Clone this repository
+Clone this repository and  then install the dependencies
 ```
     > git clone git@github.com:vanjunior/react-boilerplate.git {..desired name..}
     > cd react-boilerplate {..desired name..}
-```
-2. Install the dependencies
-```
     > npm install
     > npm run start
-``
+```
+
+#### Run the Boilerplate ###
+
+After clone and installing the dependencies then you can run the development server by typing:
+```
+    > npm run start
+```
+then you're good to go! just access the boilerplate at localhost:9000/
+
+## Happy Coding! ##
