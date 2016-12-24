@@ -37,6 +37,4 @@ then you're good to go! just access the boilerplate at localhost:9000/ and you s
 
 ![Screenshot](/public/img/screenshot.png?raw=true "Screenshot")
 
-or you can see the demo [here](http://demo.roomsquad.com/react-boilerplate)
-
 ## Happy Coding! ##
