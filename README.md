@@ -20,8 +20,8 @@ This boilerplate contains some packages below :
 
 Clone this repository and  then install the dependencies
 ```
-    > git clone git@github.com:vanjunior/react-boilerplate.git {..desired name..}
-    > cd react-boilerplate {..desired name..}
+    > git clone git@github.com:vanjunior/react-boilerplate.git [your folder name]
+    > cd react-boilerplate or [your folder name]
     > npm install
     > npm run start
 ```
@@ -33,8 +33,6 @@ After clone and installing the dependencies then you can run the development ser
 ```
     > npm run start
 ```
-then you're good to go! just access the boilerplate at localhost:9000/
-
-
+then you're good to go! just access the boilerplate at localhost:9000/ or you can see the demo [here](http://demo.roomsquad.com/react-boilerplate)
 
 ## Happy Coding! ##
