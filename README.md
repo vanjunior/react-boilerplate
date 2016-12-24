@@ -33,6 +33,10 @@ After clone and installing the dependencies then you can run the development ser
 ```
     > npm run start
 ```
-then you're good to go! just access the boilerplate at localhost:9000/ or you can see the demo [here](http://demo.roomsquad.com/react-boilerplate)
+then you're good to go! just access the boilerplate at localhost:9000/ and you should see the screenshot below
+
+![Screenshot](/public/img/screenshot.png?raw=true "Screenshot")
+
+or you can see the demo [here](http://demo.roomsquad.com/react-boilerplate)
 
 ## Happy Coding! ##
