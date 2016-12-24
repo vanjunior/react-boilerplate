@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Root extends Component {
+class App extends Component {
 
 	render() {
 		return (
@@ -12,4 +12,4 @@ class Root extends Component {
 
 }
 
-export default Root;
+export default App;
