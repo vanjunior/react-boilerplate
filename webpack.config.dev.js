@@ -15,13 +15,13 @@ function pathResolve(p) {
 }
 
 const config = {
-	devtool: '',
+	devtool: 'eval-source-map',
 	entry: {
 		bundle: pathResolve(`${SOURCE_SRC}/js/index.js`)
 	},
 	output: {
 		path: pathResolve(`${SOURCE_PUBLIC}/`),
-		filename: './js/[name]-[hash].js'
+		filename: './js/[name].js'
 	},
 	module: {
 		loaders: [
@@ -38,22 +38,21 @@ const config = {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new ExtractTextPlugin('./css/[name]-[hash].css', {
+		new ExtractTextPlugin('./css/[name].css', {
 			allowChunks: true
 		}),
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
 			inject: 'body'
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false
-			}
-		}),
+		})
     ],
 	resolve: {
-		modulesDirectories: [ NODE_MODULES ]
+		modules: [ NODE_MODULES ]
+	},
+	devServer: {
+		contentBase: './public/',
+		port: 9000
 	}
-}
+};
 
 module.exports = config;

@@ -27,7 +27,7 @@ Clone this repository and  then install the dependencies
 ```
 
 
-#### Run the Boilerplate ###
+#### Run the Boilerplate for Development ###
 
 After clone and installing the dependencies then you can run the development server by typing:
 ```
@@ -36,5 +36,12 @@ After clone and installing the dependencies then you can run the development ser
 then you're good to go! just access the boilerplate at localhost:9000/ and you should see the screenshot below
 
 ![Screenshot](/public/img/screenshot.png?raw=true "Screenshot")
+
+#### Run the Boilerplate for Production ###
+
+If you want to run this boilerplate for production just type this :
+```
+    > npm run build
+```
 
 ## Happy Coding! ##
