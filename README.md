@@ -12,7 +12,7 @@ This boilerplate contains some packages below :
 - Redux Form
 - Lodash
 - Axios
-- Webpack
+- Webpack 2
 - Webpack-dev-server
 
 

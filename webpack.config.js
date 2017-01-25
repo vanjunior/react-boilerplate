@@ -1,7 +1,7 @@
-var path 				= require('path');
-var webpack 			= require('webpack');
-var ExtractTextPlugin 	= require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin 	= require('html-webpack-plugin');
+var path 						= require('path');
+var webpack 					= require('webpack');
+var ExtractTextWebpackPlugin 	= require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin 			= require('html-webpack-plugin');
 
 const ENV			= process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 const DIR_NAME		= __dirname;
@@ -10,21 +10,28 @@ const SOURCE_ASSET 	= `${DIR_NAME}/assets`;
 const SOURCE_PUBLIC = `${DIR_NAME}/public`;
 const NODE_MODULES	= `${DIR_NAME}/node_modules`;
 
-function pathResolve(p) {
-	return path.resolve(DIR_NAME, p);
-}
+const VENDOR_LIBS = [
+	"axios",
+	"lodash",
+	"react",
+	"react-dom",
+	"react-redux",
+	"redux",
+	"redux-form",
+	"redux-thunk"
+];
 
 const config = {
-	devtool: 'eval-source-map',
 	entry: {
-		bundle: pathResolve(`${SOURCE_SRC}/js/index.js`)
+		bundle: './src/js/index.js',
+		vendor: VENDOR_LIBS
 	},
 	output: {
-		path: pathResolve(`${SOURCE_PUBLIC}/`),
-		filename: './js/[name].js'
+		path: path.join(__dirname, 'public'),
+		filename: './js/[name]-[chunkhash].js'
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
@@ -38,13 +45,18 @@ const config = {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
+		new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendor', 'manifest']
+        }),
 		new ExtractTextPlugin('./css/[name].css', {
 			allowChunks: true
 		}),
 		new HtmlWebpackPlugin({
-			template: './public/index.html',
-			inject: 'body'
-		})
+			template: './public/index.html'
+		}),
+		new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        })
     ],
 	resolve: {
 		modules: [ NODE_MODULES ]
