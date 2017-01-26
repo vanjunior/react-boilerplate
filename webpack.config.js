@@ -4,11 +4,6 @@ var ExtractTextWebpackPlugin 	= require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin 			= require('html-webpack-plugin');
 
 const ENV			= process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
-const DIR_NAME		= __dirname;
-const SOURCE_SRC	= `${DIR_NAME}/src`;
-const SOURCE_ASSET 	= `${DIR_NAME}/assets`;
-const SOURCE_PUBLIC = `${DIR_NAME}/public`;
-const NODE_MODULES	= `${DIR_NAME}/node_modules`;
 
 const VENDOR_LIBS = [
 	"axios",
@@ -22,24 +17,25 @@ const VENDOR_LIBS = [
 ];
 
 const config = {
+	devtool: (ENV === 'development') ? 'eval': '',
 	entry: {
 		bundle: './src/js/index.js',
 		vendor: VENDOR_LIBS
 	},
 	output: {
-		path: path.join(__dirname, 'public'),
-		filename: './js/[name]-[chunkhash].js'
+		path: path.join(__dirname, './public/'),
+		filename: './js/[name]-[hash].js'
 	},
 	module: {
 		rules: [
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				loader: 'babel'
+				loader: 'babel-loader'
 			},
 			{
 				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract('css!sass')
+				loader: ExtractTextWebpackPlugin.extract('css-loader!sass-loader')
 			}
 		]
 	},
@@ -48,22 +44,23 @@ const config = {
 		new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest']
         }),
-		new ExtractTextPlugin('./css/[name].css', {
-			allowChunks: true
+		new ExtractTextWebpackPlugin({
+			filename: './css/[name]-[contenthash].css'
 		}),
 		new HtmlWebpackPlugin({
-			template: './public/index.html'
+			template: './src/index.html'
 		}),
 		new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        })
+        }),
+		new webpack.LoaderOptionsPlugin({
+			minimize: true,
+			debug: false
+		})
     ],
 	resolve: {
-		modules: [ NODE_MODULES ]
-	},
-	devServer: {
-		contentBase: './public/',
-		port: 9000
+		modules: ["node_modules"],
+		descriptionFiles: ["package.json"]
 	}
 };
 

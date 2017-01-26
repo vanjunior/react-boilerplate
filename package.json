@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config webpack.config.dev.js --hot --progress --colors --inline",
-    "build": "webpack -p --config webpack.config.prod.js",
     "clean": "rimraf public",
+    "dev": "SET NODE_ENV=development && webpack-dev-server --hot --inline --progress --colors --content-base ./public/ --port 9000",
+    "build": "rimraf public && SET NODE_ENV=production && webpack -p",
     "deploy": "npm run build && git subtree push --prefix public origin gh-pages"
   },
   "repository": {
