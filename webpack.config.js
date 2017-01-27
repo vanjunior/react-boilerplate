@@ -1,67 +1,67 @@
-var path 						= require('path');
-var webpack 					= require('webpack');
-var ExtractTextWebpackPlugin 	= require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin 			= require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const webpackDevConfig = require('./webpack.config.dev');
+const webpackProdConfig = require('./webpack.config.prod');
 
-const ENV			= process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
+const projectRoot = path.resolve(__dirname, './');
+const publicRoot = path.join(projectRoot, 'public');
 
-const VENDOR_LIBS = [
+const ENV = process.env.NODE_ENV ? JSON.stringify(process.env.NODE_ENV) : 'development';
+const mergeConfig = (ENV === 'development') ? webpackDevConfig : webpackProdConfig;
+
+const VENDOR_LIBRARY = [
 	"axios",
 	"lodash",
 	"react",
 	"react-dom",
 	"react-redux",
 	"redux",
-	"redux-form",
 	"redux-thunk"
 ];
 
-const config = {
-	devtool: (ENV === 'development') ? 'eval': '',
+const config = webpackMerge(mergeConfig, {
 	entry: {
 		bundle: './src/js/index.js',
-		vendor: VENDOR_LIBS
+		vendor: VENDOR_LIBRARY
 	},
 	output: {
-		path: path.join(__dirname, './public/'),
-		filename: './js/[name]-[hash].js'
+		path: publicRoot,
+		filename: path.join(publicRoot, 'js/[name]-[hash].js')
 	},
 	module: {
 		rules: [
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
+				include: [
+					path.join(projectRoot, 'src')
+				],
 				loader: 'babel-loader'
 			},
 			{
-				test: /\.scss$/,
-				loader: ExtractTextWebpackPlugin.extract('css-loader!sass-loader')
+				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+				loader: 'url-loader',
+				query: {
+					limit: 10000,
+					name: path.join(publicRoot, 'images/[name].[hash:7].[ext]')
+				}
+			},
+			{
+				test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+				loader: 'url-loader',
+				query: {
+					limit: 10000,
+					name: path.join(publicRoot, 'fonts/[name].[hash:7].[ext]')
+				}
 			}
 		]
 	},
-	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor', 'manifest']
-        }),
-		new ExtractTextWebpackPlugin({
-			filename: './css/[name]-[contenthash].css'
-		}),
-		new HtmlWebpackPlugin({
-			template: './src/index.html'
-		}),
-		new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        }),
-		new webpack.LoaderOptionsPlugin({
-			minimize: true,
-			debug: false
-		})
-    ],
 	resolve: {
-		modules: ["node_modules"],
-		descriptionFiles: ["package.json"]
+		modules: [path.resolve(__dirname, "src"), "node_modules"],
+		descriptionFiles: ["package.json"],
+		moduleExtensions: ['-loader']
 	}
-};
+});
 
 module.exports = config;
