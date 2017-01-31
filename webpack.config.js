@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackDevConfig = require('./webpack.config.dev');
 const webpackProdConfig = require('./webpack.config.prod');
 
@@ -20,14 +21,13 @@ const VENDOR_LIBRARY = [
 	"redux-thunk"
 ];
 
-const config = webpackMerge(mergeConfig, {
+const config = webpackMerge(mergeConfig , {
 	entry: {
-		bundle: './src/js/index.js',
-		vendor: VENDOR_LIBRARY
+		bundle: './src/js/index.js'
 	},
 	output: {
 		path: publicRoot,
-		filename: path.join(publicRoot, 'js/[name]-[hash].js')
+		filename: 'js/[name]-[hash].js'
 	},
 	module: {
 		rules: [

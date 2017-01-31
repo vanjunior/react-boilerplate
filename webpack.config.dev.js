@@ -9,7 +9,7 @@ module.exports = {
 	  rules: [
 		  {
 			  test: /\.scss$/,
-			  loader: ['css-loader', 'sass-loader']
+			  loader: ['style-loader', 'css-loader', 'sass-loader']
 		  }
 	  ]
 	},
@@ -19,10 +19,10 @@ module.exports = {
 		}),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
-			filename: './src/index.html',
+			filename: 'index.html',
 			inject: true
 		})
 	]

@@ -11,14 +11,14 @@ module.exports = {
 	devtool: '#source-map',
 	output: {
 		path: publicRoot,
-		filename: path.join(publicRoot, 'js/[name]-[hash].js'),
-		chunkFilename: path.join(publicRoot, 'js/[id]-[hash].js')
+		filename: 'js/[name]-[hash].js',
+		chunkFilename: 'js/[id]-[hash].js'
 	},
 	module: {
 		rules: [
 			{
 				test: /\.scss$/,
-				loader: ExtractTextWebpackPlugin.extract('css-loader!sass-loader?sourceMap')
+				loader: ExtractTextWebpackPlugin.extract('css-loader!sass-loader')
 			}
 		]
 	},
@@ -27,11 +27,8 @@ module.exports = {
 			'process.env.NODE_ENV': ENV
 		}),
 		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: true
-		}),
 		new ExtractTextWebpackPlugin({
-			filename: path.join(publicRoot, 'css/[name]-[contenthash].css')
+			filename: 'css/style-[contenthash].css'
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
@@ -45,12 +42,23 @@ module.exports = {
 			chunksSortMode: 'dependency'
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor', 'manifest']
-        })
-		// new webpack.LoaderOptionsPlugin({
-		// 	minimize: true,
-		// 	debug: false,
-		// 	warning: false
-		// })
+			name: 'vendor',
+			minChunks: function (module, count) {
+				return (
+					module.resource &&
+					/\.js$/.test(module.resource) &&
+					module.resource.indexOf(path.join(__dirname, './node_modules')) === 0
+				)
+			}
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'manifest',
+			chunks: ['vendor']
+		}),
+		new webpack.LoaderOptionsPlugin({
+			minimize: true,
+			debug: false,
+			warning: false
+		})
 	]
 };
