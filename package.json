@@ -23,8 +23,7 @@
     "es2015",
     "webpack",
     "sass",
-    "es6",
-    "foundation"
+    "es6"
   ],
   "bugs": {
     "url": "https://github.com/vanjunior/react-boilerplate/issues"
