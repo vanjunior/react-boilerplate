@@ -41,19 +41,28 @@ const config = webpackMerge(mergeConfig , {
 			},
 			{
 				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-				loader: 'url-loader',
-				query: {
-					limit: 10000,
-					name: path.join(publicRoot, 'images/[name].[hash:7].[ext]')
-				}
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 10000,
+							name: 'images/[name].[hash:7].[ext]'
+						}
+					},
+					'img-loader'
+				]
 			},
 			{
 				test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-				loader: 'url-loader',
-				query: {
-					limit: 10000,
-					name: path.join(publicRoot, 'fonts/[name].[hash:7].[ext]')
-				}
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 10000,
+							name: 'fonts/[name].[hash:7].[ext]'
+						}
+					}
+				]
 			}
 		]
 	},
