@@ -18,7 +18,15 @@ module.exports = {
 		rules: [
 			{
 				test: /\.scss$/,
-				loader: ExtractTextWebpackPlugin.extract('css-loader!resolve-url-loader!sass-loader')
+				use: ExtractTextWebpackPlugin.extract({
+					fallbackLoader: "style-loader",
+					loader: [
+						"css-loader",
+						"resolve-url-loader",
+						"sass-loader"
+					],
+					publicPath: '../'
+				})
 			}
 		]
 	},

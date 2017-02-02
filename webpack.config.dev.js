@@ -17,7 +17,7 @@ module.exports = {
 	  rules: [
 		  {
 			  test: /\.scss$/,
-			  loader: ['style-loader', 'css-loader?modules', 'resolve-url-loader', 'sass-loader']
+			  use: ['style-loader', 'css-loader', 'resolve-url-loader', 'sass-loader']
 		  }
 	  ]
 	},
@@ -27,7 +27,6 @@ module.exports = {
 		}),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NamedModulesPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
