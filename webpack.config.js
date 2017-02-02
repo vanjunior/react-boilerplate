@@ -49,7 +49,26 @@ const config = webpackMerge(mergeConfig , {
 							name: 'images/[name].[hash:7].[ext]'
 						}
 					},
-					'img-loader'
+					{
+						loader: 'image-webpack-loader',
+						options: {
+							mozjpeg: {
+								quality: 90,
+								progressive: true,
+							},
+							gifsicle: {
+								interlaced: false,
+							},
+							optipng: {
+								optimizationLevel: 4,
+							},
+							pngquant: {
+								quality: '75-90',
+								speed: 3,
+							},
+							bypassOnDebug: false
+						}
+					}
 				]
 			},
 			{
