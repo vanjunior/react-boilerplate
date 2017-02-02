@@ -5,7 +5,7 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const projectRoot = path.resolve(__dirname, './');
 const publicRoot = path.join(projectRoot, 'public');
-const ENV = process.env.NODE_ENV ? JSON.stringify(process.env.NODE_ENV) : 'development';
+const ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 
 module.exports = {
 	devtool: '#source-map',
@@ -18,13 +18,13 @@ module.exports = {
 		rules: [
 			{
 				test: /\.scss$/,
-				loader: ExtractTextWebpackPlugin.extract('css-loader!sass-loader')
+				loader: ExtractTextWebpackPlugin.extract('css-loader!resolve-url-loader!sass-loader')
 			}
 		]
 	},
 	plugins: [
 		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': ENV
+			'process.env.NODE_ENV': JSON.stringify(ENV)
 		}),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new ExtractTextWebpackPlugin({

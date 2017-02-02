@@ -8,7 +8,7 @@ const webpackProdConfig = require('./webpack.config.prod');
 const projectRoot = path.resolve(__dirname, './');
 const publicRoot = path.join(projectRoot, 'public');
 
-const ENV = process.env.NODE_ENV ? JSON.stringify(process.env.NODE_ENV) : 'development';
+const ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 const mergeConfig = (ENV === 'development') ? webpackDevConfig : webpackProdConfig;
 
 const VENDOR_LIBRARY = [
